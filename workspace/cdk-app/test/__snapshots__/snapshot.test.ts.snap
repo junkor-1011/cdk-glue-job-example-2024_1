@@ -10,6 +10,49 @@ exports[`snapshot test 1`] = `
     },
   },
   "Resources": {
+    "DataAnalysisSystemathenaresultEE5A72C5": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketName": {
+          "Fn::Join": [
+            "",
+            [
+              "athena-result-",
+              {
+                "Ref": "AWS::AccountId",
+              },
+              "-",
+              {
+                "Ref": "AWS::Region",
+              },
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "DataAnalysisSystemathenaworkgroup24F04E37": {
+      "Properties": {
+        "Name": "sample-workgroup",
+        "WorkGroupConfiguration": {
+          "ResultConfiguration": {
+            "OutputLocation": {
+              "Fn::Join": [
+                "",
+                [
+                  "s3://",
+                  {
+                    "Ref": "DataAnalysisSystemathenaresultEE5A72C5",
+                  },
+                ],
+              ],
+            },
+          },
+        },
+      },
+      "Type": "AWS::Athena::WorkGroup",
+    },
     "DataLakeSystemConvertedDataBucketC98B3E80": {
       "DeletionPolicy": "Retain",
       "Properties": {
