@@ -50,6 +50,7 @@ export class DataLakeSystem extends Construct {
     });
 
     new glueAlpha.S3Table(this, 'Sample Table', {
+      tableName: 'sample-table',
       bucket: this.convertedDataBucket,
       database: db,
       dataFormat: glueAlpha.DataFormat.PARQUET,
